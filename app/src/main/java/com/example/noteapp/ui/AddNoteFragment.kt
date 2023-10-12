@@ -55,6 +55,8 @@ class AddNoteFragment : BaseFragment() {
 
 
                 fab_done.setOnClickListener {
+
+
                     launch{
                         val note=Note(noteTitle,noteBody)
                         context?.let{
@@ -63,7 +65,7 @@ class AddNoteFragment : BaseFragment() {
 
                         }
                     }
-            Navigation.findNavController(view).navigate(R.id.action_addNoteFragment_to_homeFragment)
+                    Navigation.findNavController(view).navigate(R.id.action_addNoteFragment_to_homeFragment)
         }
     }
 
