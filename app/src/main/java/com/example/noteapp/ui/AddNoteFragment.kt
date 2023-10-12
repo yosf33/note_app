@@ -1,18 +1,19 @@
 package com.example.noteapp.ui
 
-import android.os.AsyncTask
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.example.noteapp.R
 import com.example.noteapp.db.Note
 import com.example.noteapp.db.NoteDatabase
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -20,7 +21,7 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 
-class AddNoteFragment : Fragment() {
+class AddNoteFragment : BaseFragment() {
     lateinit var fab_done: FloatingActionButton
     lateinit var editText_title: EditText
     lateinit var editText_note: EditText
@@ -47,38 +48,25 @@ class AddNoteFragment : Fragment() {
         }
 
         if (noteBody.isEmpty()) {
-            editText_note.error = "Title required"
+            editText_note.error = "body required"
             editText_note.requestFocus()
         }
 
-        val note = Note(noteTitle, noteBody)
-        saveNote(note)
 
 
+                fab_done.setOnClickListener {
+                    launch{
+                        val note=Note(noteTitle,noteBody)
+                        context?.let{
+                            NoteDatabase(it).getNoteDao().addNote(note)
+                            it.toast("note saved")
 
-        fab_done.setOnClickListener {
+                        }
+                    }
             Navigation.findNavController(view).navigate(R.id.action_addNoteFragment_to_homeFragment)
-
         }
     }
 
-    private fun saveNote(note: Note) {
-        class SaveNote : AsyncTask<Void, Void, Void>() {
-
-            override fun doInBackground(vararg p0: Void?): Void? {
-                NoteDatabase(activity!!).getNoteDao().addNote(note)
-                return null
-
-            }
-            override fun onPostExecute(result: Void?) {
-                super.onPostExecute(result)
-                Toast.makeText(activity,"Note Saved",Toast.LENGTH_LONG).show()
-
-            }
-
-        }
-        SaveNote().execute()
-    }
 
 
 

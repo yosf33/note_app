@@ -10,7 +10,7 @@ import com.example.noteapp.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment() {
 
     lateinit var fab_add:FloatingActionButton
     override fun onCreateView(
