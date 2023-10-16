@@ -15,12 +15,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-
 class AddNoteFragment : BaseFragment() {
     lateinit var fab_done: FloatingActionButton
     lateinit var editText_title: EditText
@@ -39,22 +33,23 @@ class AddNoteFragment : BaseFragment() {
         editText_title = view.findViewById(R.id.title)
         editText_note = view.findViewById(R.id.note)
 
-        val noteTitle = editText_title.text.toString().trim()
-        val noteBody = editText_note.text.toString().trim()
-
-        if (noteTitle.isEmpty()) {
-            editText_title.error = "Title required"
-            editText_title.requestFocus()
-        }
-
-        if (noteBody.isEmpty()) {
-            editText_note.error = "body required"
-            editText_note.requestFocus()
-        }
 
 
 
                 fab_done.setOnClickListener {
+                    val noteTitle = editText_title.text.toString().trim()
+                    val noteBody = editText_note.text.toString().trim()
+
+                    if (noteTitle.isEmpty()) {
+                        editText_title.error = "Title required"
+                        editText_title.requestFocus()
+                    }
+
+                    if (noteBody.isEmpty()) {
+                        editText_note.error = "body required"
+                        editText_note.requestFocus()
+                    }
+
 
 
                     launch{
